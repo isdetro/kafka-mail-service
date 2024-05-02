@@ -30,5 +30,37 @@ spring:
               mapping: Message:com.example.kafkademo.dto.Message
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
+  mail:
+    host: ${EMAIL_HOSTl}
+    port: ${EMAIL_PORT}
+    username: ${EMAIL_ID}
+    password: ${EMAIL_PASSWORD}
+    default-encoding: UTF-8
+    properties:
+      mail:
+        mime:
+          charset: UTF
+        smtp:
+          timeout: 10000
+          writetimeout: 10000
+          connectiontimeout: 10000
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    verify:
+      host: ${VERIFY_EMAIL_HOST}
+
+
+server:
+  port: ${SERVER_PORT:9000}
+
 kafka:
   topic: quickstart-events
+
+#Email Config
+EMAIL_HOSTl: smtp.gmail.com
+EMAIL_PORT: 587
+EMAIL_ID: suniversitymanagement@gmail.com
+EMAIL_PASSWORD: wjnqmmiufspisyjq
+VERIFY_EMAIL_HOST: http://localhost:${SERVER_PORT:9000}
