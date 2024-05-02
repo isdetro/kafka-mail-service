@@ -18,7 +18,7 @@ spring:
             trusted:
               packages: '*'
             type:
-              mapping: 'Message : com.example.kafkademo.dto.Message'
+              mapping: Message:com.example.kafkademo.dto.Message
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
     producer:
       bootstrap-servers: localhost:9092
