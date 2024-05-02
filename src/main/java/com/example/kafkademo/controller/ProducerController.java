@@ -1,5 +1,6 @@
 package com.example.kafkademo.controller;
 
+import com.example.kafkademo.dto.Message;
 import com.example.kafkademo.service.ProducerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +14,15 @@ public class ProducerController {
         this.producerService = producerService;
     }
 
+//    @PostMapping
+//    public String getTest(@RequestBody String message){
+//       producerService.send(message);
+//       return "gonderildi";
+//    }
+
     @PostMapping
-    public String getTest(@RequestBody String message){
-       producerService.send(message);
-       return "gonderildi";
+    public Message getTest2(@RequestBody Message message){
+        producerService.send(message);
+        return message;
     }
 }
