@@ -6,6 +6,7 @@ spring:
     consumer:
       auto-offset-reset: earliest
       bootstrap-servers: localhost:9092
+#      bootstrap-servers: http://38.242.216.187:3030/api/MailTest/SendMail
       group-id: my-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
@@ -18,8 +19,9 @@ spring:
             trusted:
               packages: '*'
             type:
-              mapping: Message:com.example.kafkademo.dto.Message
-      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+              mapping: KafkaEmail:com.example.kafkademo.dto.KafkaEmail
+#      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -56,7 +58,7 @@ server:
   port: ${SERVER_PORT:9000}
 
 kafka:
-  topic: quickstart-events
+  topic: Procurement
 
 #Email Config
 EMAIL_HOSTl: smtp.gmail.com

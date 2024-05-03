@@ -28,21 +28,21 @@ public class ProducerService {
         System.out.println("gonderildi");
     }
 
-    public void sendMessageAndEmail(Message message) {
-        send(message);
-        message.toList.forEach(z -> {
-            System.out.println(message.message);
-            System.out.println(z);
-            System.out.println(message.topic);
-            emailService.sendSimpleMailMessage(message.message, z, message.topic);
-        });
-    }
+//    public void sendMessageAndEmail(Message message) {
+//        send(message);
+//        message.toList.forEach(z -> {
+//            System.out.println(message.message);
+//            System.out.println(z);
+//            System.out.println(message.topic);
+//            emailService.sendSimpleMailMessage(message.message, z, message.topic);
+//        });
+//    }
 
-    @PostConstruct
-    public void init() {
-        List<String> emails = new ArrayList<>();
-        emails.add("isgender.detroit@gmail.com");
-        Message message = new Message("xyz", emails, "saalaaaaam");
-        sendMessageAndEmail(message);
-    }
+//    @PostConstruct
+//    public void init() {
+//        List<String> emails = new ArrayList<>();
+//        emails.add("isgender.detroit@gmail.com");
+//        Message message = new Message("xyz", emails, "saalaaaaam");
+//        sendMessageAndEmail(message);
+//    }
 }

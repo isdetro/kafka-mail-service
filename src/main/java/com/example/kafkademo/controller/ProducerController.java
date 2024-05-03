@@ -22,7 +22,7 @@ public class ProducerController {
 
     @PostMapping
     public Message getTest2(@RequestBody Message message){
-        producerService.sendMessageAndEmail(message);
+        producerService.send(message);
         return message;
     }
 }
