@@ -5,9 +5,9 @@ spring:
   kafka:
     consumer:
       auto-offset-reset: earliest
+#      bootstrap-servers: 38.242.216.187:9092
       bootstrap-servers: localhost:9092
-#      bootstrap-servers: http://38.242.216.187:3030/api/MailTest/SendMail
-      group-id: my-group
+      group-id: topic-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         spring:
@@ -20,16 +20,17 @@ spring:
               packages: '*'
             type:
               mapping: KafkaEmail:com.example.kafkademo.dto.KafkaEmail
-#      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
+#      bootstrap-servers: 38.242.216.187:9092
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       properties:
         spring:
           json:
             type:
-              mapping: Message:com.example.kafkademo.dto.Message
+              mapping: KafkaEmail:com.example.kafkademo.dto.KafkaEmail
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
   mail:
@@ -53,16 +54,16 @@ spring:
     verify:
       host: ${VERIFY_EMAIL_HOST}
 
-
 server:
   port: ${SERVER_PORT:9000}
 
 kafka:
-  topic: Procurement
+  topic: commerceTopic
 
 #Email Config
 EMAIL_HOSTl: smtp.gmail.com
 EMAIL_PORT: 587
 EMAIL_ID: suniversitymanagement@gmail.com
 EMAIL_PASSWORD: wjnqmmiufspisyjq
-VERIFY_EMAIL_HOST: http://localhost:${SERVER_PORT:9000}
+#VERIFY_EMAIL_HOST: 38.242.216.187:9092
+VERIFY_EMAIL_HOST: localhost:9092

@@ -1,5 +1,6 @@
 package com.example.kafkademo.controller;
 
+import com.example.kafkademo.dto.KafkaEmail;
 import com.example.kafkademo.dto.Message;
 import com.example.kafkademo.service.ProducerService;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class ProducerController {
 //    }
 
     @PostMapping
-    public Message getTest2(@RequestBody Message message){
+    public KafkaEmail getTest2(@RequestBody KafkaEmail message){
         producerService.send(message);
         return message;
     }

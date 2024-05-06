@@ -18,6 +18,7 @@ import java.util.Map;
 
 import static com.example.kafkademo.utils.EmailUtils.*;
 import static com.example.kafkademo.utils.TemplateUtils.EMAIL_TEMPLATE;
+import static com.example.kafkademo.utils.TemplateUtils.WEEKLY_REPORTS;
 
 
 @Service
@@ -105,7 +106,7 @@ public class EmailService {
         try {
             Context context = new Context();
             context.setVariables(Map.of("name", name, "url", getVerificationUrl(host, token)));
-            String htmlText = templateEngine.process(EMAIL_TEMPLATE, context);
+            String htmlText = templateEngine.process(WEEKLY_REPORTS, context);
             MimeMessage message = getMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
             helper.setPriority(1);

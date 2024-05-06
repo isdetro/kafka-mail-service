@@ -16,10 +16,11 @@ public class ConsumerService {
     }
 
 
-    @KafkaListener(topics = "Procurement")
-    public void consume(ConsumerRecord<String, String> record) {
+    @KafkaListener(topics = "commerceTopic", groupId = "topic-group")
+    public void consume(ConsumerRecord<String, KafkaEmail> record) {
         System.out.println(record.value());
         System.out.println(record);
+        System.out.println("dinleme");
 //        record.value().Persons.forEach(z -> {
 //            System.out.println(z.UserName);
 //            System.out.println(z.Email);
