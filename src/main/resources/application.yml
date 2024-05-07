@@ -23,8 +23,8 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
 #      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     producer:
-#      bootstrap-servers: 38.242.216.187:9092
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: 38.242.216.187:9092
+#      bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       properties:
         spring:
@@ -32,6 +32,7 @@ spring:
             type:
               mapping: KafkaEmail:com.example.kafkademo.dto.KafkaEmail
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
   mail:
     host: ${EMAIL_HOSTl}
@@ -58,7 +59,7 @@ server:
   port: ${SERVER_PORT:9000}
 
 kafka:
-  topic: commerceTopic
+  topic: newTopic
 
 #Email Config
 EMAIL_HOSTl: smtp.gmail.com

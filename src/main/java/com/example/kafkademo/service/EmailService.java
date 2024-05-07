@@ -1,6 +1,8 @@
 package com.example.kafkademo.service;
 
 
+import com.example.kafkademo.dto.KafkaEmail;
+import com.example.kafkademo.helper.HtmlThymeleaf;
 import com.example.kafkademo.utils.EmailUtils;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,12 +15,11 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Map;
 
+import static com.example.kafkademo.helper.ReadJSONFile.HTML_REQUEST_APPROVED_ENG;
 import static com.example.kafkademo.utils.EmailUtils.*;
-import static com.example.kafkademo.utils.TemplateUtils.EMAIL_TEMPLATE;
-import static com.example.kafkademo.utils.TemplateUtils.WEEKLY_REPORTS;
 
 
 @Service
@@ -56,99 +57,46 @@ public class EmailService {
 
 
     @Async
-    public void sendMimeMessageWithAttachment(String name, String to, String token) {
-        try {
-            MimeMessage message = getMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
-            helper.setPriority(1);
-            helper.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
-            helper.setTo(to);
-            helper.setFrom(fromEmail);
-            helper.setText(EmailUtils.getVerificationEmail(name, host, token));
-
-            // Add attachment
-            FileSystemResource resume = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/IsgandarMammadovsResume.pdf"));
-            helper.addAttachment(resume.getFilename(), resume);
-
-            emailSender.send(message);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-
-    @Async
-    public void sendMimeMessageWithEmbeddedImages(String name, String to, String token) {
-        try {
-            MimeMessage message = getMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
-            helper.setPriority(1);
-            helper.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
-            helper.setTo(to);
-            helper.setFrom(fromEmail);
-            helper.setText(EmailUtils.getVerificationEmail(name, host, token));
-
-            // Add attachment - INLINE
-            FileSystemResource resume = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/IsgandarMammadovsResume.pdf"));
-            helper.addInline(getContentId(resume.getFilename()), resume);
-
-            emailSender.send(message);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-
-    @Async
-    public void sendHtmlEmail(String name, String to, String token, String template) {
+    public void sendHtmlEmail(KafkaEmail kafkaEmail, String to) {
         try {
             Context context = new Context();
-            context.setVariables(Map.of("name", name, "url", getVerificationUrl(host, token)));
-            String htmlText = templateEngine.process(WEEKLY_REPORTS, context);
+
+            String subject = HTML_REQUEST_APPROVED_ENG.subject;
+            subject = subject.replace("{Request NO}", kafkaEmail.Process.getFirst().Number);
+
+            String actualYear = LocalDateTime.now().getYear() + "";
+            String footer = HTML_REQUEST_APPROVED_ENG.footer;
+            footer = footer.replace("{Company Name}", kafkaEmail.CompanyName);
+            footer = footer.replace("{Actual Year}", actualYear);
+
+            String info = HTML_REQUEST_APPROVED_ENG.info;
+            info = info.replace("{User Full Name}", kafkaEmail.Persons.getFirst().UserName);
+
+            context.setVariables(Map.of(
+                    "actualYear", actualYear,
+                    "companyName", kafkaEmail.CompanyName,
+                    "requestNo", kafkaEmail.Process.getFirst().Number,
+                    "requester", kafkaEmail.Process.getFirst().Name,
+                    "requestDate", kafkaEmail.Process.getFirst().localDateTime.toString(),
+                    "header", HTML_REQUEST_APPROVED_ENG.header,
+                    "noReply", HTML_REQUEST_APPROVED_ENG.noReply,
+                    "info", info,
+                    "footer", footer));
+            String htmlText = templateEngine.process(kafkaEmail.EmailTemplateKey.toString(), context);
             MimeMessage message = getMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
             helper.setPriority(1);
-            helper.setSubject(template);
+            helper.setSubject(subject);
             helper.setTo(to);
             helper.setFrom(fromEmail);
             helper.setText(htmlText, true);
             emailSender.send(message);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
 
-
-    @Async
-    public void sendHtmlEmailWithEmbeddedFiles(String name, String to, String token) {
-        try {
-            Context context = new Context();
-            context.setVariables(Map.of("name", name, "url", getVerificationUrl(host, token)));
-            String htmlText = templateEngine.process(EMAIL_TEMPLATE, context);
-            MimeMessage message = getMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
-            helper.setPriority(1);
-            helper.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
-            helper.setTo(to);
-            helper.setFrom(fromEmail);
-            helper.setText(htmlText, true);
-
-            // ADD FILE
-            // Add attachment - INLINE
-            FileSystemResource resume = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/IsgandarMammadovsResume.pdf"));
-            helper.addInline(getContentId(resume.getFilename()), resume);
-
-            emailSender.send(message);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    private MimeMessage getMimeMessage() {
+    protected MimeMessage getMimeMessage() {
         return emailSender.createMimeMessage();
     }
 

@@ -5,6 +5,8 @@ import com.example.kafkademo.dto.Message;
 import com.example.kafkademo.service.ProducerService;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RequestMapping("/producer")
 @RestController
 public class ProducerController {
@@ -22,8 +24,7 @@ public class ProducerController {
 //    }
 
     @PostMapping
-    public KafkaEmail getTest2(@RequestBody KafkaEmail message){
-        producerService.send(message);
-        return message;
+    public void getTest2() {
+        producerService.init();
     }
 }
