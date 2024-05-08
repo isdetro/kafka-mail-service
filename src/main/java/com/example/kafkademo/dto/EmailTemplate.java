@@ -7,10 +7,14 @@ public enum EmailTemplate {
     RequestApproved("RequestApproved"),
     RequestRejected("RequestRejected"),
     RequestHeld("RequestHeld"),
+    BidPending("BidPending"),
+    BidApproved("BidApproved"),
+    BidRejected("BidRejected"),
+    BidHeld("BidHeld"),
     UserPending("UserPending"),
     UserApproved("UserApproved"),
     UserRejected("UserRejected"),
-    UserHeld("UserHeld"); ;
+    UserHeld("UserHeld");
 
     private final String value;
 

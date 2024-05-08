@@ -1,16 +1,27 @@
 package com.example.kafkademo.dto;
 
-import java.time.LocalDateTime;
 
 public class Process {
     public String Number;
     public String Name;
-    public LocalDateTime localDateTime;
+    public String LocalDateTime;
+    public String ReasonDescription;
 
-    public Process(String number, String name, LocalDateTime localDateTime) {
+
+    public Process(String number, String name, String localDateTime, String reasonDescription) {
         Number = number;
         Name = name;
-        this.localDateTime = localDateTime;
+        LocalDateTime = localDateTime;
+        ReasonDescription = reasonDescription;
+    }
+
+    public Process(String number, String name, String localDateTime) {
+        Number = number;
+        Name = name;
+        LocalDateTime = localDateTime;
+    }
+
+    public Process() {
     }
 
     @Override
@@ -18,7 +29,7 @@ public class Process {
         return "Process{" +
                 "Number='" + Number + '\'' +
                 ", Name='" + Name + '\'' +
-                ", localDateTime=" + localDateTime +
+                ", LocalDateTime='" + LocalDateTime + '\'' +
                 '}';
     }
 }
