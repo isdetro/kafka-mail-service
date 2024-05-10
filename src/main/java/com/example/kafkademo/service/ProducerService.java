@@ -39,17 +39,17 @@ public class ProducerService {
 //        emails.add(new Person("Isgender Nashville","isgender.nashville@gmail.com", Language.ENG));
 //        emails.add(new Person("Isgandar Mammadov","isgandar.mammadov97@gmail.com", Language.ENG));
         KafkaEmail kafkaEmail = new KafkaEmail();
-        kafkaEmail.EmailTemplateKey = EmailTemplate.BidApproved;
+        kafkaEmail.EmailTemplateKey = EmailTemplate.UserApproved;
         kafkaEmail.Persons =emails;
         kafkaEmail.CompanyName = "Apertech";
         kafkaEmail.Sequence = 69;
-        LocalDateTime localDateTime = LocalDateTime.now();
+        String localDateTime = LocalDateTime.now().toString().substring(0,10);
         List<Process> processes = new ArrayList<>();
 
         emails.forEach(x -> {
-            Process process = new Process("21657165E", x.UserName, localDateTime.toString()," SPAM");
-            Process process1 = new Process("21657165W", x.UserName, localDateTime.toString(), "SPAM");
-            Process process2 = new Process("21657165A", x.UserName, localDateTime.toString(), "SPAM");
+            Process process = new Process("21657165E", x.UserName, localDateTime," SPAM");
+            Process process1 = new Process("21657165W", x.UserName, localDateTime, "SPAM");
+            Process process2 = new Process("21657165A", x.UserName, localDateTime, "SPAM");
             processes.add(process);
             processes.add(process1);
             processes.add(process2);

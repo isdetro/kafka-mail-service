@@ -20,11 +20,67 @@
     "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n Request has been rejected.<br/>\n Reject Reason is: <span style=\"color: red\">{Reason Description}</span>\n </p>",
     "footer": "<div style=\"margin-top:30px;flex:1\">\n <b>{Company Name} Team</b>\n  <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n <p>\n © {Actual Year} Sola ERP {Company Name} All rights reserved.\n </p>\n </div>"
   },
+  "requestHeld": {
+    "subject": "The requests are hold, Sequence: {Seq}",
+    "header": "<h1 style=\"color: #eed202; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n Request is Hold\n  </h1>",
+    "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n This is an automatically generated email - please do not reply\n </h1>",
+    "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n Request has been hold.<br/>\n Hold Reason is: <span style=\"color: red\">{Reason Description}</span>\n </p>",
+    "footer": "<div style=\"margin-top:30px;flex:1\">\n <b>{Company Name} Team</b>\n  <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n <p>\n © {Actual Year} Sola ERP {Company Name} All rights reserved.\n </p>\n </div>"
+  },
   "bidApproved": {
     "subject": "The bids are successfully approved",
     "header": "<h1 style=\"color: #34bf49; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n Bids are Approved\n </h1>",
     "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n This is an automatically generated email - please do not reply\n  </h1>",
     "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n  the following bids are Successfully Approved.<br/>\n Please login to <a href=\"#\" style=\"color: rgb(25, 118, 210)\">Client Portal</a> using your email address and your password.\n   </p>",
     "footer": " <div style=\"margin-top:30px;flex:1\">\n  <b>{Company Name} Team</b>\n  <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n  <p>\n  © {Actual Year} Sola ERP <div></div> All rights reserved.\n  </p>\n  </div>\n"
+  },
+  "bidPending": {
+    "subject": "The bids are Pending for Approvals, Sequence: {Seq}",
+    "header": "<h1 style=\"color: #3483bf; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n  Bid is Pending for Approvals\n   </h1>",
+    "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n  This is an automatically generated email - please do not reply\n </h1>",
+    "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n  the following bids are pending for your Approvals.<br/>\n  Please login to <a href=\"#\" style=\"color: rgb(25, 118, 210)\">Client Portal</a> using your email address and your password and make your decision.\n </p>",
+    "footer": "<div style=\"margin-top:30px;flex:1\">\n <b>{Company Name} Team</b>\n <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n    <p>\n   © {Actual Year} Sola ERP {Company Name} All rights reserved.\n  </p>\n    </div>"
+  },
+  "bidRejected": {
+    "subject": "The bids are rejected, Sequence: {Seq}",
+    "header": "<h1 style=\"color: #dc160e; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n Bid is Rejected\n  </h1>",
+    "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n This is an automatically generated email - please do not reply\n </h1>",
+    "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n Bid has been rejected.<br/>\n Reject Reason is: <span style=\"color: red\">{Reason Description}</span>\n </p>",
+    "footer": "<div style=\"margin-top:30px;flex:1\">\n <b>{Company Name} Team</b>\n  <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n <p>\n © {Actual Year} Sola ERP {Company Name} All rights reserved.\n </p>\n </div>"
+  },
+  "bidHeld": {
+    "subject": "The bids are hold, Sequence: {Seq}",
+    "header": "<h1 style=\"color: #eed202; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n Bid is Hold\n  </h1>",
+    "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n This is an automatically generated email - please do not reply\n </h1>",
+    "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n Bid has been hold.<br/>\n Hold Reason is: <span style=\"color: red\">{Reason Description}</span>\n </p>",
+    "footer": "<div style=\"margin-top:30px;flex:1\">\n <b>{Company Name} Team</b>\n  <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n <p>\n © {Actual Year} Sola ERP {Company Name} All rights reserved.\n </p>\n </div>"
+  },
+  "userApproved": {
+    "subject": "The users are successfully approved",
+    "header": "<h1 style=\"color: #34bf49; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n Users are Approved\n </h1>",
+    "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n This is an automatically generated email - please do not reply\n  </h1>",
+    "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n  the following users are Successfully Approved.<br/>\n Please login to <a href=\"#\" style=\"color: rgb(25, 118, 210)\">Client Portal</a> using your email address and your password.\n   </p>",
+    "footer": " <div style=\"margin-top:30px;flex:1\">\n  <b>{Company Name} Team</b>\n  <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n  <p>\n  © {Actual Year} Sola ERP <div></div> All rights reserved.\n  </p>\n  </div>\n"
+  },
+  "userPending": {
+    "subject": "The users are Pending for Approvals, Sequence: {Seq}",
+    "header": "<h1 style=\"color: #3483bf; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n  User is Pending for Approvals\n   </h1>",
+    "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n  This is an automatically generated email - please do not reply\n </h1>",
+    "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n  the following users are pending for your Approvals.<br/>\n  Please login to <a href=\"#\" style=\"color: rgb(25, 118, 210)\">Client Portal</a> using your email address and your password and make your decision.\n </p>",
+    "footer": "<div style=\"margin-top:30px;flex:1\">\n <b>{Company Name} Team</b>\n <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n    <p>\n   © {Actual Year} Sola ERP {Company Name} All rights reserved.\n  </p>\n    </div>"
+  },
+  "userRejected": {
+    "subject": "The users are rejected, Sequence: {Seq}",
+    "header": "<h1 style=\"color: #dc160e; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n User is Rejected\n  </h1>",
+    "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n This is an automatically generated email - please do not reply\n </h1>",
+    "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n User has been rejected.<br/>\n Reject Reason is: <span style=\"color: red\">{Reason Description}</span>\n </p>",
+    "footer": "<div style=\"margin-top:30px;flex:1\">\n <b>{Company Name} Team</b>\n  <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n <p>\n © {Actual Year} Sola ERP {Company Name} All rights reserved.\n </p>\n </div>"
+  },
+  "userHeld": {
+    "subject": "The users are hold, Sequence: {Seq}",
+    "header": "<h1 style=\"color: #eed202; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;\">\n User is Hold\n  </h1>",
+    "noReply": "<h1 style=\"color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;\">\n This is an automatically generated email - please do not reply\n </h1>",
+    "info": "<p style=\"color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;\">\n  Dear <b>{User Full Name}</b>,<br/>\n User has been hold.<br/>\n Hold Reason is: <span style=\"color: red\">{Reason Description}</span>\n </p>",
+    "footer": "<div style=\"margin-top:30px;flex:1\">\n <b>{Company Name} Team</b>\n  <p style=\"margin-bottom: 30px\">Developed by Apertech Team.</p>\n <p>\n © {Actual Year} Sola ERP {Company Name} All rights reserved.\n </p>\n </div>"
   }
 }
