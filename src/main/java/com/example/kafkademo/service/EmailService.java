@@ -69,6 +69,8 @@ public class EmailService {
             info = info.replace("{User Full Name}", p.UserName);
             info = info.replace("{Reason Description}", kafkaEmail.Process.getFirst().ReasonDescription);
             info = info.replace("{Vendor Name or Company Name}", kafkaEmail.CompanyName);
+            String link = "\"" + kafkaEmail.Link + "\"";
+            info = info.replace("\"#\"", link);
 
             context.setVariables(Map.of(
                     "actualYear", actualYear,
