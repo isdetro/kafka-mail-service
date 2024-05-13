@@ -68,6 +68,7 @@ public class EmailService {
             String info = htmlThymeleaf.info;
             info = info.replace("{User Full Name}", p.UserName);
             info = info.replace("{Reason Description}", kafkaEmail.Process.getFirst().ReasonDescription);
+            info = info.replace("{Vendor Name or Company Name}", kafkaEmail.CompanyName);
 
             context.setVariables(Map.of(
                     "actualYear", actualYear,

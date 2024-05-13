@@ -35,21 +35,21 @@ public class ProducerService {
 
     public void init() {
         List<Person> emails = new ArrayList<>();
-        emails.add(new Person("Isgender Detroit","isgender.detroit@gmail.com", Language.ENG));
+        emails.add(new Person("Isgender Memmedov","isgender.detroit@gmail.com", Language.ENG));
 //        emails.add(new Person("Isgender Nashville","isgender.nashville@gmail.com", Language.ENG));
 //        emails.add(new Person("Isgandar Mammadov","isgandar.mammadov97@gmail.com", Language.ENG));
         KafkaEmail kafkaEmail = new KafkaEmail();
-        kafkaEmail.EmailTemplateKey = EmailTemplate.UserApproved;
+        kafkaEmail.EmailTemplateKey = EmailTemplate.RegistrationIsRejected;
         kafkaEmail.Persons =emails;
         kafkaEmail.CompanyName = "Apertech";
-        kafkaEmail.Sequence = 69;
+        kafkaEmail.Sequence = 2;
         String localDateTime = LocalDateTime.now().toString().substring(0,10);
         List<Process> processes = new ArrayList<>();
 
         emails.forEach(x -> {
-            Process process = new Process("21657165E", x.UserName, localDateTime," SPAM");
-            Process process1 = new Process("21657165W", x.UserName, localDateTime, "SPAM");
-            Process process2 = new Process("21657165A", x.UserName, localDateTime, "SPAM");
+            Process process = new Process("21657165E", "Isgender Memmedov", localDateTime," SPAM");
+            Process process1 = new Process("21657165W", "Oktay Afandi", localDateTime, "SPAM");
+            Process process2 = new Process("21657165A", "Subhan Mesimov", localDateTime, "SPAM");
             processes.add(process);
             processes.add(process1);
             processes.add(process2);

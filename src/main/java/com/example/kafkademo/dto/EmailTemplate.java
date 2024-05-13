@@ -14,7 +14,15 @@ public enum EmailTemplate {
     UserPending("UserPending"),
     UserApproved("UserApproved"),
     UserRejected("UserRejected"),
-    UserHeld("UserHeld");
+    UserHeld("UserHeld"),
+    RegistrationIsPending("RegistrationIsPending"),
+    RegistrationIsPendingForAdmin("RegistrationIsPendingForAdmin"),
+    RegistrationIsApproved("RegistrationIsApproved"),
+    RegistrationIsRejected("RegistrationIsRejected"),
+    EmailConfirmPage("EmailConfirmPage"),
+    EmailVerification("EmailVerification"),
+    EvaluationForCompanyUser("EvaluationForCompanyUser"),
+    EvaluationForVendor("EvaluationForVendor");
 
     private final String value;
 
