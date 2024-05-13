@@ -23,37 +23,23 @@
                style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; width: 100%; border: 0px; border-bottom: 1px solid #d6d6d6; max-width: 800px;">
             <tbody>
             <tr>
-                <td style="vertical-align: top; background-color: #fff; color: #444; font-family: 'Helvetica Neue',Roboto,Arial,sans-serif; font-size: 14px; line-height: 140%; padding: 20px;"
-                    bgcolor="#fff" valign="top">
-                    <h1 style="color: #06090f; font-family: sans-serif; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;">
-                       Subject: Request {Request NO} is Successfully Approvals
-                    </h1>
-                </td>
+<!--                <td style="vertical-align: top; background-color: #fff; color: #444; font-family: 'Helvetica Neue',Roboto,Arial,sans-serif; font-size: 14px; line-height: 140%; padding: 20px;"-->
+<!--                    bgcolor="#fff" valign="top">-->
+<!--                </td>-->
             </tr>
             <tr>
                 <td style="vertical-align: top; background-color: #fff; color: #444; font-family: 'Helvetica Neue',Roboto,Arial,sans-serif; font-size: 14px; line-height: 140%; padding:0 20px;"
-                    bgcolor="#fff" valign="top">
-                    <h1 style="color: #34bf49; font-family: sans-serif; margin-bottom: 30px; text-transform: capitalize; font-size: 20px; font-weight: bold; line-height: 1.3;">
-                        Request is Approved
-                    </h1>
+                    bgcolor="#fff" valign="top" th:utext="${header}">
                 </td>
             </tr>
             <tr>
                 <td style="vertical-align: top; background-color: #fff; color: #444; font-family: 'Helvetica Neue',Roboto,Arial,sans-serif; font-size: 14px;padding: 0 20px"
-                    bgcolor="#fff" valign="top">
-                    <h1 style="color: grey; font-family: sans-serif; font-size: 14px; font-weight: bold; line-height: 1.3;">
-                        This is an automatically generated email - please do not reply
-                    </h1>
+                    bgcolor="#fff" valign="top" th:utext="${noReply}">
                 </td>
             </tr>
             <tr>
                 <td style="vertical-align: top; background-color: #fff; color: #444; font-family: 'Helvetica Neue',Roboto,Arial,sans-serif; font-size: 14px;padding: 0 20px"
-                    bgcolor="#fff" valign="top">
-                    <p style="color: black; font-family: sans-serif; margin-bottom: 30px; font-size: 14px; line-height: 1.3;">
-                        Dear <b>{User Full Name}</b>,<br/>
-                        the following Request(s) {Request No} is Successfully Approved.<br/>
-                        Please login to <a href="#" style="color: rgb(25, 118, 210)">Client Portal</a> using your email address and your password.
-                    </p>
+                    bgcolor="#fff" valign="top" th:utext="${info}">
                 </td>
             </tr>
             <tr>
@@ -65,24 +51,23 @@
                         <tr>
                             <td style="font-family: sans-serif;font-weight: bold; font-size: 14px; vertical-align: top; background-color: #f8fafc; padding: 14px; border-bottom: 1px solid #d6d6d6;"
                                 bgcolor="#f8fafc" valign="top">
-                                Request No
+                                Bid No
                             </td>
                             <td style="font-family: sans-serif;font-weight: bold; font-size: 14px; vertical-align: top; background-color: #f8fafc; padding: 14px; border-bottom: 1px solid #d6d6d6;"
-                                bgcolor="#f8fafc" valign="top">
-                                Request Date
+                                bgcolor="#f8fafc" valign="top" >
+                                Bid Date
                             </td>
                             <td style="font-family: sans-serif;font-weight: bold; font-size: 14px; vertical-align: top; background-color: #f8fafc; padding: 14px; border-bottom: 1px solid #d6d6d6;"
-                                bgcolor="#f8fafc" valign="top">
+                                bgcolor="#f8fafc" valign="top" >
                                 Requester
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:each="entry : ${request}">
                             <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; color: #444;border-bottom:1px solid #d6d6d6"
                                 valign="top">
                                 <div style="width:96%;padding:0 10px 10px;">
                                     <p style="color:rgb(25, 118, 210);font-family: sans-serif; font-size: 14px; margin: 10px 0 0; font-weight: 600; display: inline-block; width: 50%; max-width: 50%; word-break: break-all;">
-                                        <a href="#" style="color:rgb(25, 118, 210)">
-                                            {Request No}
+                                        <a href="#" style="color:rgb(25, 118, 210)"  th:text="${entry.Number}">
                                         </a>
                                     </p>
                                 </div>
@@ -90,44 +75,14 @@
                             <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; color: #444;border-bottom:1px solid #d6d6d6"
                                 valign="top">
                                 <div style="width:96%;padding:0 10px 10px;">
-                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin-bottom: 15px; margin: 10px 0 0; display: inline-block;">
-                                        {Request Date}
+                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin-bottom: 15px; margin: 10px 0 0; display: inline-block;" th:text="${entry.LocalDateTime}">
                                     </p>
                                 </div>
                             </td>
                             <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; color: #444;border-bottom:1px solid #d6d6d6"
                                 valign="top">
                                 <div style="width:96%;padding:0 10px 10px;">
-                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin-bottom: 15px; margin: 10px 0 0; display: inline-block;">
-                                        {Requester}
-                                    </p>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; color: #444"
-                                valign="top">
-                                <div style="width:96%;padding:0 10px 10px;">
-                                    <p style="color:rgb(25, 118, 210);font-family: sans-serif; font-size: 14px; margin: 10px 0 0; font-weight: 600; display: inline-block; width: 50%; max-width: 50%; word-break: break-all;">
-                                        <a href="#" style="color:rgb(25, 118, 210)">
-                                            {Request No}
-                                        </a>
-                                    </p>
-                                </div>
-                            </td>
-                            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; color: #444"
-                                valign="top">
-                                <div style="width:96%;padding:0 10px 10px;">
-                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin-bottom: 15px; margin: 10px 0 0; display: inline-block;">
-                                        {Request Date}
-                                    </p>
-                                </div>
-                            </td>
-                            <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; color: #444"
-                                valign="top">
-                                <div style="width:96%;padding:0 10px 10px;">
-                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin-bottom: 15px; margin: 10px 0 0; display: inline-block;">
-                                        {Requester}
+                                    <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin-bottom: 15px; margin: 10px 0 0; display: inline-block;" th:text="${entry.Name}">
                                     </p>
                                 </div>
                             </td>
@@ -144,14 +99,7 @@
                         <tbody>
                         <tr>
                             <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; padding: 0 20px 20px; display: flex; flex-wrap: wrap; background-color: #fff;"
-                                bgcolor="#fff" valign="top">
-                                <div style="margin-top:30px;flex:1">
-                                    <b>{Company Name} Team</b>
-                                    <p style="margin-bottom: 30px">Developed by Apertech Team.</p>
-                                    <p>
-                                        © {actual year} Sola ERP {Company Name} All rights reserved.
-                                    </p>
-                                </div>
+                                bgcolor="#fff" valign="top" th:utext="${footer}">
                             </td>
                         </tr>
                         </tbody>

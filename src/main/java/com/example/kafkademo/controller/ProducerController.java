@@ -1,8 +1,7 @@
 package com.example.kafkademo.controller;
 
-import com.example.kafkademo.dto.KafkaEmail;
-import com.example.kafkademo.dto.Message;
 import com.example.kafkademo.service.ProducerService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/producer")
@@ -15,15 +14,8 @@ public class ProducerController {
         this.producerService = producerService;
     }
 
-//    @PostMapping
-//    public String getTest(@RequestBody String message){
-//       producerService.send(message);
-//       return "gonderildi";
-//    }
-
     @PostMapping
-    public KafkaEmail getTest2(@RequestBody KafkaEmail message){
-        producerService.send(message);
-        return message;
+    public void getTest2() throws JsonProcessingException {
+        producerService.init();
     }
 }

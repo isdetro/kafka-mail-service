@@ -1,11 +1,13 @@
 package com.example.kafkademo.service;
 
 
-import com.example.kafkademo.utils.EmailUtils;
+import com.example.kafkademo.dto.KafkaEmail;
+import com.example.kafkademo.dto.Person;
+import com.example.kafkademo.dto.Process;
+import com.example.kafkademo.helper.HtmlThymeleaf;
+import com.example.kafkademo.helper.ReadJSONFile;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -13,12 +15,12 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.io.File;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.example.kafkademo.utils.EmailUtils.*;
-import static com.example.kafkademo.utils.TemplateUtils.EMAIL_TEMPLATE;
-import static com.example.kafkademo.utils.TemplateUtils.WEEKLY_REPORTS;
 
 
 @Service
@@ -32,123 +34,65 @@ public class EmailService {
 
     private final JavaMailSender emailSender;
     private final TemplateEngine templateEngine;
+    private final  ReadJSONFile readJSONFile ;
 
-    public EmailService(JavaMailSender emailSender, TemplateEngine templateEngine) {
+    public EmailService(JavaMailSender emailSender, TemplateEngine templateEngine, ReadJSONFile readJSONFile) {
         this.emailSender = emailSender;
         this.templateEngine = templateEngine;
+        this.readJSONFile = readJSONFile;
     }
 
-
     @Async
-    public void sendSimpleMailMessage(String name, String to, String token) {
+    public void sendHtmlEmail(KafkaEmail kafkaEmail, Person p) {
         try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
-            message.setTo(to);
-            message.setFrom(fromEmail);
-            message.setText(EmailUtils.getSimpleMessage(name));
-            emailSender.send(message);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
+            List<Process> onlyProcess = new ArrayList<>();
+            kafkaEmail.Process.forEach(process -> {
+                if(process.Name.equals(p.UserName)){
+                    onlyProcess.add(process);
+                }
+            });
+
+            HtmlThymeleaf htmlThymeleaf = readJSONFile.getRequestHTML(kafkaEmail, p);
 
 
-    @Async
-    public void sendMimeMessageWithAttachment(String name, String to, String token) {
-        try {
-            MimeMessage message = getMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
-            helper.setPriority(1);
-            helper.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
-            helper.setTo(to);
-            helper.setFrom(fromEmail);
-            helper.setText(EmailUtils.getVerificationEmail(name, host, token));
-
-            // Add attachment
-            FileSystemResource resume = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/IsgandarMammadovsResume.pdf"));
-            helper.addAttachment(resume.getFilename(), resume);
-
-            emailSender.send(message);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-
-    @Async
-    public void sendMimeMessageWithEmbeddedImages(String name, String to, String token) {
-        try {
-            MimeMessage message = getMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
-            helper.setPriority(1);
-            helper.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
-            helper.setTo(to);
-            helper.setFrom(fromEmail);
-            helper.setText(EmailUtils.getVerificationEmail(name, host, token));
-
-            // Add attachment - INLINE
-            FileSystemResource resume = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/IsgandarMammadovsResume.pdf"));
-            helper.addInline(getContentId(resume.getFilename()), resume);
-
-            emailSender.send(message);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-
-    @Async
-    public void sendHtmlEmail(String name, String to, String token, String template) {
-        try {
             Context context = new Context();
-            context.setVariables(Map.of("name", name, "url", getVerificationUrl(host, token)));
-            String htmlText = templateEngine.process(WEEKLY_REPORTS, context);
+            String subject = htmlThymeleaf.subject;
+            subject = subject.replace("{Seq}", Integer.toString(kafkaEmail.Sequence));
+
+
+            String actualYear = LocalDateTime.now().getYear() + "";
+            String footer = htmlThymeleaf.footer;
+            footer = footer.replace("{Company Name}", kafkaEmail.CompanyName);
+            footer = footer.replace("{Actual Year}", actualYear);
+
+            String info = htmlThymeleaf.info;
+            info = info.replace("{User Full Name}", p.UserName);
+            info = info.replace("{Reason Description}", kafkaEmail.Process.getFirst().ReasonDescription);
+            info = info.replace("{Vendor Name or Company Name}", kafkaEmail.CompanyName);
+
+            context.setVariables(Map.of(
+                    "actualYear", actualYear,
+                    "companyName", kafkaEmail.CompanyName,
+                    "request", onlyProcess,
+                    "header", htmlThymeleaf.header,
+                    "noReply", htmlThymeleaf.noReply,
+                    "info", info,
+                    "footer", footer));
+            String htmlText = templateEngine.process(kafkaEmail.EmailTemplateKey.toString(), context);
             MimeMessage message = getMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
             helper.setPriority(1);
-            helper.setSubject(template);
-            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setTo(p.Email);
             helper.setFrom(fromEmail);
             helper.setText(htmlText, true);
             emailSender.send(message);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }
 
-
-    @Async
-    public void sendHtmlEmailWithEmbeddedFiles(String name, String to, String token) {
-        try {
-            Context context = new Context();
-            context.setVariables(Map.of("name", name, "url", getVerificationUrl(host, token)));
-            String htmlText = templateEngine.process(EMAIL_TEMPLATE, context);
-            MimeMessage message = getMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
-            helper.setPriority(1);
-            helper.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
-            helper.setTo(to);
-            helper.setFrom(fromEmail);
-            helper.setText(htmlText, true);
-
-            // ADD FILE
-            // Add attachment - INLINE
-            FileSystemResource resume = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/IsgandarMammadovsResume.pdf"));
-            helper.addInline(getContentId(resume.getFilename()), resume);
-
-            emailSender.send(message);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            throw new RuntimeException(e.getMessage());
-        }
-    }
-
-    private MimeMessage getMimeMessage() {
+    protected MimeMessage getMimeMessage() {
         return emailSender.createMimeMessage();
     }
 
