@@ -25,9 +25,9 @@ public class ReadJSONFile {
     public HtmlThymeleaf getRequestHTML(KafkaEmail kafkaEmail, Person p) {
 
         try {
-            JsonNode jsonNode = getWhichJsonFile(p.language.name());
+            JsonNode jsonNode = getWhichJsonFile(p.Language.name());
             jsonNode = getRequest(jsonNode, kafkaEmail.EmailTemplateKey);
-            HtmlThymeleaf htmlThymeleaf = createHtmlFromJson(jsonNode, kafkaEmail.EmailTemplateKey.name(), p.language.name());
+            HtmlThymeleaf htmlThymeleaf = createHtmlFromJson(jsonNode, kafkaEmail.EmailTemplateKey.name(), p.Language.name());
 
             return htmlThymeleaf;
         } catch (Exception e) {
@@ -77,6 +77,10 @@ public class ReadJSONFile {
 
         String firstLetter = emailTemplate.toString().charAt(0) + "";
         String temp = firstLetter.toLowerCase() + emailTemplate.toString().substring(1);
+
+        System.out.println();
+        System.out.println(temp + "TEMPPPPPPPPPPPPP");
+        System.out.println();
 
         return Optional.ofNullable(jsonNode)
                 .map(x -> x.get(temp))

@@ -3,12 +3,12 @@ package com.example.kafkademo.dto;
 public class Person {
     public String UserName;
     public String Email;
-    public Language language;
+    public Language Language;
 
-    public Person(String userName, String email, Language language) {
+    public Person(String userName, String email, com.example.kafkademo.dto.Language Language) {
         UserName = userName;
         Email = email;
-        this.language = language;
+        Language = Language;
     }
 
     public Person() {
@@ -19,6 +19,7 @@ public class Person {
         return "Person{" +
                 "UserName='" + UserName + '\'' +
                 ", Email='" + Email + '\'' +
+                ", Language=" + Language +
                 '}';
     }
 }

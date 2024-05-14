@@ -39,10 +39,10 @@ public class ProducerService {
 //        emails.add(new Person("Isgender Nashville","isgender.nashville@gmail.com", Language.ENG));
 //        emails.add(new Person("Isgandar Mammadov","isgandar.mammadov97@gmail.com", Language.ENG));
         KafkaEmail kafkaEmail = new KafkaEmail();
-        kafkaEmail.EmailTemplateKey = EmailTemplate.RegistrationIsRejected;
+        kafkaEmail.EmailTemplateKey = EmailTemplate.RegistrationIsPending;
         kafkaEmail.Persons =emails;
         kafkaEmail.CompanyName = "Apertech";
-        kafkaEmail.Sequence = 2;
+        kafkaEmail.Process.getFirst().Sequence = 2;
         String localDateTime = LocalDateTime.now().toString().substring(0,10);
         List<Process> processes = new ArrayList<>();
 
@@ -56,6 +56,7 @@ public class ProducerService {
             kafkaEmail.Process = processes;
 
         });
+
         try {
             send(kafkaEmail);
         } catch (JsonProcessingException e) {

@@ -57,7 +57,7 @@ public class EmailService {
 
             Context context = new Context();
             String subject = htmlThymeleaf.subject;
-            subject = subject.replace("{Seq}", Integer.toString(kafkaEmail.Sequence));
+//            subject = subject.replace("{Seq}", Integer.toString(kafkaEmail.Process.getFirst().Sequence));
 
 
             String actualYear = LocalDateTime.now().getYear() + "";
@@ -67,7 +67,7 @@ public class EmailService {
 
             String info = htmlThymeleaf.info;
             info = info.replace("{User Full Name}", p.UserName);
-            info = info.replace("{Reason Description}", kafkaEmail.Process.getFirst().ReasonDescription);
+//            info = info.replace("{Reason Description}", kafkaEmail.Process.getFirst().ReasonDescription);
             info = info.replace("{Vendor Name or Company Name}", kafkaEmail.CompanyName);
             String link = "\"" + kafkaEmail.Link + "\"";
             info = info.replace("\"#\"", link);
