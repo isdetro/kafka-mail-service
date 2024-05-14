@@ -42,15 +42,16 @@ public class EmailService {
         this.readJSONFile = readJSONFile;
     }
 
-    @Async
+//    @Async
     public void sendHtmlEmail(KafkaEmail kafkaEmail, Person p) {
+        System.out.println(p + " personsss");
         try {
-            List<Process> onlyProcess = new ArrayList<>();
-            kafkaEmail.Process.forEach(process -> {
-                if(process.Name.equals(p.UserName)){
-                    onlyProcess.add(process);
-                }
-            });
+//            List<Process> onlyProcess = new ArrayList<>();
+//            kafkaEmail.Process.forEach(process -> {
+//                if(process.Name.equals(p.UserName)){
+//                    onlyProcess.add(process);
+//                }
+//            });
 
             HtmlThymeleaf htmlThymeleaf = readJSONFile.getRequestHTML(kafkaEmail, p);
 
@@ -72,14 +73,14 @@ public class EmailService {
             String link = "\"" + kafkaEmail.Link + "\"";
             info = info.replace("\"#\"", link);
 
-            context.setVariables(Map.of(
-                    "actualYear", actualYear,
-                    "companyName", kafkaEmail.CompanyName,
-                    "request", onlyProcess,
-                    "header", htmlThymeleaf.header,
-                    "noReply", htmlThymeleaf.noReply,
-                    "info", info,
-                    "footer", footer));
+//            context.setVariables(Map.of(
+//                    "actualYear", actualYear,
+//                    "companyName", kafkaEmail.CompanyName,
+//                    "request", onlyProcess,
+//                    "header", htmlThymeleaf.header,
+//                    "noReply", htmlThymeleaf.noReply,
+//                    "info", info,
+//                    "footer", footer));
             String htmlText = templateEngine.process(kafkaEmail.EmailTemplateKey.toString(), context);
             MimeMessage message = getMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);

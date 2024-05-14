@@ -31,28 +31,36 @@ public class ReadJSONFile {
 
             return htmlThymeleaf;
         } catch (Exception e) {
+            System.err.println("ReadJsonFile-da getRequestHtml metodundadi problem");
             throw new RuntimeException(e);
+
         }
 
     }
 
     public JsonNode getWhichJsonFile(String language) throws Exception {
         JsonNode jsonNode;
-        if (language.equalsIgnoreCase(Language.ENG.name())) {
+        System.out.println(language + " lanquic");
+        if (language.equalsIgnoreCase("ENG")) {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/json/email-eng.json")) {
                 jsonNode = objectMapper.readValue(inputStream, JsonNode.class);
+                System.out.println("ceyson Node "+ jsonNode);
                 return jsonNode;
             } catch (Exception e) {
+                System.err.println("ReadJsonFile-da getWhichJson metodundadi problem");
+
                 throw new Exception("Error reading JSON file");
             }
-        } else if (language.equalsIgnoreCase(Language.AZE.name())) {
+        }
+        else if (language.equalsIgnoreCase(Language.AZE.name())) {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/json/email-aze.json")) {
                 jsonNode = objectMapper.readValue(inputStream, JsonNode.class);
                 return jsonNode;
             } catch (Exception e) {
                 throw new Exception("Error reading JSON file");
             }
-        } else {
+        }
+        else {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/json/email-rus.json")) {
                 jsonNode = objectMapper.readValue(inputStream, JsonNode.class);
                 return jsonNode;

@@ -8,7 +8,7 @@ public class Person {
     public Person(String userName, String email, com.example.kafkademo.dto.Language Language) {
         UserName = userName;
         Email = email;
-        Language = Language;
+        this.Language = Language;
     }
 
     public Person() {
