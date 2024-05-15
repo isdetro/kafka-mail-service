@@ -28,7 +28,6 @@ public class ConsumerService {
 
 
         KafkaEmail kafkaEmail = objectMapper.readValue(record.value(), KafkaEmail.class);
-        kafkaEmail.Persons.add(new Person("Isgender Memmedov", "isgender.detroit@gmail.com", Language.ENG));
         kafkaEmail.ReferenceNo = "";
 
         sendAll(kafkaEmail);
