@@ -3,21 +3,17 @@ package com.example.kafkademo.service;
 
 import com.example.kafkademo.dto.KafkaEmail;
 import com.example.kafkademo.dto.Person;
-import com.example.kafkademo.dto.RowInfo;
 import com.example.kafkademo.helper.HtmlThymeleaf;
 import com.example.kafkademo.helper.ReadJSONFile;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static com.example.kafkademo.utils.EmailUtils.*;
