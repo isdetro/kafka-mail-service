@@ -1,8 +1,6 @@
 package com.example.kafkademo.dto;
 
 public enum EmailTemplate {
-    Verification("Verification"),
-    RegistrationPendingForApproval("RegistrationPendingForApproval"),
     RequestPending("RequestPending"),
     RequestApproved("RequestApproved"),
     RequestRejected("RequestRejected"),

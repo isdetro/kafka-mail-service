@@ -9,30 +9,32 @@ spring:
 #      bootstrap-servers: localhost:9092
       group-id: topic-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      properties:
-#        spring:
+      properties:
+        spring:
 #          deserializer:
 #            value:
 #              delegate:
 #                class: org.springframework.kafka.support.serializer.JsonDeserializer
-#          json:
-#            trusted:
-#              packages: '*'
+          json:
+            trusted:
+              packages: '*'
 #            type:
 #              mapping: KafkaEmail:com.example.kafkademo.dto.KafkaEmail
 #      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      bootstrap-servers: 38.242.216.187:9092
-#      bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      properties:
-        spring:
-          json:
-            type:
-              mapping: KafkaEmail:com.example.kafkademo.dto.KafkaEmail
-#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+#    producer:
+#      bootstrap-servers: 38.242.216.187:9092
+##      bootstrap-servers: localhost:9092
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      properties:
+#        spring:
+#          json:
+#            type:
+#              mapping: KafkaEmail:com.example.kafkademo.dto.KafkaEmail
+##      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
   mail:
     host: ${EMAIL_HOSTl}
@@ -59,7 +61,7 @@ server:
   port: ${SERVER_PORT:9000}
 
 kafka:
-  topic: newTopic
+  topic: kafka
 
 #Email Config
 EMAIL_HOSTl: smtp.gmail.com

@@ -1,27 +1,32 @@
 package com.example.kafkademo.dto;
 
 
-public class Process {
+public class RowInfo {
     public String Number;
     public String Name;
     public String LocalDateTime;
     public String ReasonDescription;
+    public Integer Sequence;
 
 
-    public Process(String number, String name, String localDateTime, String reasonDescription) {
+    public RowInfo(String Number, String Name, String LocalDateTime, String ReasonDescription, Integer Sequence) {
+     this.Number = Number;
+     this.Name = Name;
+     this.LocalDateTime = LocalDateTime;
+     this.ReasonDescription = ReasonDescription;
+     this.Sequence = Sequence;
+    }
+
+    public RowInfo(String number, String name, String localDateTime, String reasonDescription) {
         Number = number;
         Name = name;
         LocalDateTime = localDateTime;
         ReasonDescription = reasonDescription;
     }
 
-    public Process(String number, String name, String localDateTime) {
-        Number = number;
-        Name = name;
-        LocalDateTime = localDateTime;
-    }
 
-    public Process() {
+
+    public RowInfo() {
     }
 
     @Override

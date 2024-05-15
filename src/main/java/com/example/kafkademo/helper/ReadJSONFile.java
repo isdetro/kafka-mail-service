@@ -25,34 +25,41 @@ public class ReadJSONFile {
     public HtmlThymeleaf getRequestHTML(KafkaEmail kafkaEmail, Person p) {
 
         try {
-            JsonNode jsonNode = getWhichJsonFile(p.language.name());
+            JsonNode jsonNode = getWhichJsonFile(p.Lang.name());
             jsonNode = getRequest(jsonNode, kafkaEmail.EmailTemplateKey);
-            HtmlThymeleaf htmlThymeleaf = createHtmlFromJson(jsonNode, kafkaEmail.EmailTemplateKey.name(), p.language.name());
+            HtmlThymeleaf htmlThymeleaf = createHtmlFromJson(jsonNode, kafkaEmail.EmailTemplateKey.name(), p.Lang.name());
 
             return htmlThymeleaf;
         } catch (Exception e) {
+            System.err.println("ReadJsonFile-da getRequestHtml metodundadi problem");
             throw new RuntimeException(e);
+
         }
 
     }
 
     public JsonNode getWhichJsonFile(String language) throws Exception {
         JsonNode jsonNode;
-        if (language.equalsIgnoreCase(Language.ENG.name())) {
+        System.out.println(language + " lanquic");
+        if (language.equalsIgnoreCase("ENG")) {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/json/email-eng.json")) {
                 jsonNode = objectMapper.readValue(inputStream, JsonNode.class);
                 return jsonNode;
             } catch (Exception e) {
+                System.err.println("ReadJsonFile-da getWhichJson metodundadi problem");
+
                 throw new Exception("Error reading JSON file");
             }
-        } else if (language.equalsIgnoreCase(Language.AZE.name())) {
+        }
+        else if (language.equalsIgnoreCase(Language.AZE.name())) {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/json/email-aze.json")) {
                 jsonNode = objectMapper.readValue(inputStream, JsonNode.class);
                 return jsonNode;
             } catch (Exception e) {
                 throw new Exception("Error reading JSON file");
             }
-        } else {
+        }
+        else {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/json/email-rus.json")) {
                 jsonNode = objectMapper.readValue(inputStream, JsonNode.class);
                 return jsonNode;
@@ -70,6 +77,12 @@ public class ReadJSONFile {
         String info = jsonNode.get("info").asText();
         String footer = jsonNode.get("footer").asText();
 
+        System.out.println("subject: " + subject);
+        System.out.println("header: " + header);
+        System.out.println("noReply: " + noReply);
+        System.out.println("info: " + info);
+        System.out.println("footer: " + footer);
+
         return new HtmlThymeleaf(subject, header, noReply, info, footer, type, language);
     }
 
@@ -77,6 +90,10 @@ public class ReadJSONFile {
 
         String firstLetter = emailTemplate.toString().charAt(0) + "";
         String temp = firstLetter.toLowerCase() + emailTemplate.toString().substring(1);
+
+        System.out.println();
+        System.out.println(temp + "  Template");
+        System.out.println();
 
         return Optional.ofNullable(jsonNode)
                 .map(x -> x.get(temp))

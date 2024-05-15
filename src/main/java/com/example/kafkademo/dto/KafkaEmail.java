@@ -7,11 +7,10 @@ public class KafkaEmail {
     public EmailTemplate EmailTemplateKey;
     public ApproveStatus ApproveStatus;
     public List<Person> Persons;
-    public int Sequence;
     public String ReferenceNo;
     public String Link;
     public String CompanyName;
-    public List<Process> Process;
+    public List<RowInfo> rowInfos;
 
     @Override
     public String toString() {
@@ -19,11 +18,10 @@ public class KafkaEmail {
                 "EmailTemplateKey=" + EmailTemplateKey +
                 ", ApproveStatus=" + ApproveStatus +
                 ", Persons=" + Persons +
-                ", Sequence=" + Sequence +
                 ", ReferenceNo='" + ReferenceNo + '\'' +
                 ", Link='" + Link + '\'' +
                 ", CompanyName='" + CompanyName + '\'' +
-                ", Process=" + Process +
+                ", RowInfos=" + rowInfos +
                 '}';
     }
 }
