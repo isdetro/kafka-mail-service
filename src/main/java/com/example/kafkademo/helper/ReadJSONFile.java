@@ -44,7 +44,6 @@ public class ReadJSONFile {
         if (language.equalsIgnoreCase("ENG")) {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/json/email-eng.json")) {
                 jsonNode = objectMapper.readValue(inputStream, JsonNode.class);
-                System.out.println("ceyson Node "+ jsonNode);
                 return jsonNode;
             } catch (Exception e) {
                 System.err.println("ReadJsonFile-da getWhichJson metodundadi problem");
@@ -78,6 +77,12 @@ public class ReadJSONFile {
         String info = jsonNode.get("info").asText();
         String footer = jsonNode.get("footer").asText();
 
+        System.out.println("subject: " + subject);
+        System.out.println("header: " + header);
+        System.out.println("noReply: " + noReply);
+        System.out.println("info: " + info);
+        System.out.println("footer: " + footer);
+
         return new HtmlThymeleaf(subject, header, noReply, info, footer, type, language);
     }
 
@@ -87,7 +92,7 @@ public class ReadJSONFile {
         String temp = firstLetter.toLowerCase() + emailTemplate.toString().substring(1);
 
         System.out.println();
-        System.out.println(temp + "TEMPPPPPPPPPPPPP");
+        System.out.println(temp + "  Template");
         System.out.println();
 
         return Optional.ofNullable(jsonNode)

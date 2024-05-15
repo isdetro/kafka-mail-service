@@ -46,19 +46,21 @@ public class EmailService {
     public void sendHtmlEmail(KafkaEmail kafkaEmail, Person p) {
         System.out.println(p + " personsss");
         try {
-//            List<Process> onlyProcess = new ArrayList<>();
-//            kafkaEmail.Process.forEach(process -> {
-//                if(process.Name.equals(p.UserName)){
-//                    onlyProcess.add(process);
-//                }
-//            });
+            List<Process> onlyProcess = new ArrayList<>();
+            kafkaEmail.Process.forEach(process -> {
+                if(process.Name.equals(p.UserName)){
+                    onlyProcess.add(process);
+                }
+            });
 
             HtmlThymeleaf htmlThymeleaf = readJSONFile.getRequestHTML(kafkaEmail, p);
 
 
             Context context = new Context();
             String subject = htmlThymeleaf.subject;
-//            subject = subject.replace("{Seq}", Integer.toString(kafkaEmail.Process.getFirst().Sequence));
+            subject = subject.replace("{Seq}", Integer.toString(kafkaEmail.Process.getFirst().Sequence));
+
+            System.out.println("Yekun subject = " + subject);
 
 
             String actualYear = LocalDateTime.now().getYear() + "";
@@ -66,25 +68,33 @@ public class EmailService {
             footer = footer.replace("{Company Name}", kafkaEmail.CompanyName);
             footer = footer.replace("{Actual Year}", actualYear);
 
+            System.out.println("Yekun footer = " + footer);
+
+
             String info = htmlThymeleaf.info;
             info = info.replace("{User Full Name}", p.UserName);
-//            info = info.replace("{Reason Description}", kafkaEmail.Process.getFirst().ReasonDescription);
+            info = info.replace("{Reason Description}", kafkaEmail.Process.getFirst().ReasonDescription);
             info = info.replace("{Vendor Name or Company Name}", kafkaEmail.CompanyName);
             String link = "\"" + kafkaEmail.Link + "\"";
             info = info.replace("\"#\"", link);
 
-//            context.setVariables(Map.of(
-//                    "actualYear", actualYear,
-//                    "companyName", kafkaEmail.CompanyName,
-//                    "request", onlyProcess,
-//                    "header", htmlThymeleaf.header,
-//                    "noReply", htmlThymeleaf.noReply,
-//                    "info", info,
-//                    "footer", footer));
+            System.out.println("Yekun info = " + info);
+
+
+            context.setVariables(Map.of(
+                    "actualYear", actualYear,
+                    "companyName", kafkaEmail.CompanyName,
+                    "request", kafkaEmail.Process,
+                    "header", htmlThymeleaf.header,
+                    "noReply", htmlThymeleaf.noReply,
+                    "info", info,
+                    "footer", footer));
+            System.out.println();
+            System.out.println(context + "  context");
             String htmlText = templateEngine.process(kafkaEmail.EmailTemplateKey.toString(), context);
             MimeMessage message = getMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
-            helper.setPriority(1);
+            helper.setPriority(2);
             helper.setSubject(subject);
             helper.setTo(p.Email);
             helper.setFrom(fromEmail);

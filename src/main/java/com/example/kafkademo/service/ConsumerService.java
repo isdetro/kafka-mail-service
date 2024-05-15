@@ -29,19 +29,13 @@ public class ConsumerService {
 
         KafkaEmail kafkaEmail = objectMapper.readValue(record.value(), KafkaEmail.class);
         kafkaEmail.Persons.add(new Person("Isgender Memmedov", "isgender.detroit@gmail.com", Language.ENG));
-        kafkaEmail.ReferenceNo = "goDaddy";
-        kafkaEmail.EmailTemplateKey = EmailTemplate.EmailConfirmPage;
-//        KafkaEmail kafkaEmail = record.value();
-        System.out.println();
-//        System.out.println(json + "------");
-//        System.out.println(kafkaEmail + "------");
-        System.out.println();
+        kafkaEmail.ReferenceNo = "";
+
         sendAll(kafkaEmail);
     }
 
     public void sendAll(KafkaEmail kafkaEmail) {
-//        System.out.println();
-        System.out.println(kafkaEmail + " qafqaMail");
+        System.out.println("kafka template: " + kafkaEmail.EmailTemplateKey);
         try {
             kafkaEmail.Persons.forEach(z -> emailService.sendHtmlEmail(kafkaEmail, z));
         } catch (Exception e) {
