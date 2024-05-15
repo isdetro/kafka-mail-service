@@ -10,7 +10,7 @@ public class KafkaEmail {
     public String ReferenceNo;
     public String Link;
     public String CompanyName;
-    public List<Process> Process;
+    public List<RowInfo> rowInfos;
 
     @Override
     public String toString() {
@@ -21,7 +21,7 @@ public class KafkaEmail {
                 ", ReferenceNo='" + ReferenceNo + '\'' +
                 ", Link='" + Link + '\'' +
                 ", CompanyName='" + CompanyName + '\'' +
-                ", Process=" + Process +
+                ", RowInfos=" + rowInfos +
                 '}';
     }
 }

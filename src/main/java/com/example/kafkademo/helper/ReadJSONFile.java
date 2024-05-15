@@ -25,9 +25,9 @@ public class ReadJSONFile {
     public HtmlThymeleaf getRequestHTML(KafkaEmail kafkaEmail, Person p) {
 
         try {
-            JsonNode jsonNode = getWhichJsonFile(p.Language.name());
+            JsonNode jsonNode = getWhichJsonFile(p.Lang.name());
             jsonNode = getRequest(jsonNode, kafkaEmail.EmailTemplateKey);
-            HtmlThymeleaf htmlThymeleaf = createHtmlFromJson(jsonNode, kafkaEmail.EmailTemplateKey.name(), p.Language.name());
+            HtmlThymeleaf htmlThymeleaf = createHtmlFromJson(jsonNode, kafkaEmail.EmailTemplateKey.name(), p.Lang.name());
 
             return htmlThymeleaf;
         } catch (Exception e) {

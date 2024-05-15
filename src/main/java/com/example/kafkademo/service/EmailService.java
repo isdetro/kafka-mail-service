@@ -3,7 +3,7 @@ package com.example.kafkademo.service;
 
 import com.example.kafkademo.dto.KafkaEmail;
 import com.example.kafkademo.dto.Person;
-import com.example.kafkademo.dto.Process;
+import com.example.kafkademo.dto.RowInfo;
 import com.example.kafkademo.helper.HtmlThymeleaf;
 import com.example.kafkademo.helper.ReadJSONFile;
 import jakarta.mail.internet.MimeMessage;
@@ -46,19 +46,11 @@ public class EmailService {
     public void sendHtmlEmail(KafkaEmail kafkaEmail, Person p) {
         System.out.println(p + " personsss");
         try {
-            List<Process> onlyProcess = new ArrayList<>();
-            kafkaEmail.Process.forEach(process -> {
-                if(process.Name.equals(p.UserName)){
-                    onlyProcess.add(process);
-                }
-            });
-
             HtmlThymeleaf htmlThymeleaf = readJSONFile.getRequestHTML(kafkaEmail, p);
 
 
             Context context = new Context();
             String subject = htmlThymeleaf.subject;
-            subject = subject.replace("{Seq}", Integer.toString(kafkaEmail.Process.getFirst().Sequence));
 
             System.out.println("Yekun subject = " + subject);
 
@@ -73,7 +65,7 @@ public class EmailService {
 
             String info = htmlThymeleaf.info;
             info = info.replace("{User Full Name}", p.UserName);
-            info = info.replace("{Reason Description}", kafkaEmail.Process.getFirst().ReasonDescription);
+            info = info.replace("{Reason Description}", kafkaEmail.rowInfos.getFirst().ReasonDescription);
             info = info.replace("{Vendor Name or Company Name}", kafkaEmail.CompanyName);
             String link = "\"" + kafkaEmail.Link + "\"";
             info = info.replace("\"#\"", link);
@@ -84,7 +76,7 @@ public class EmailService {
             context.setVariables(Map.of(
                     "actualYear", actualYear,
                     "companyName", kafkaEmail.CompanyName,
-                    "request", kafkaEmail.Process,
+                    "request", kafkaEmail.rowInfos,
                     "header", htmlThymeleaf.header,
                     "noReply", htmlThymeleaf.noReply,
                     "info", info,

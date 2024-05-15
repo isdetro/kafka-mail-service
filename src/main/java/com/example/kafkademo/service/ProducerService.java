@@ -1,7 +1,6 @@
 package com.example.kafkademo.service;
 
 import com.example.kafkademo.dto.*;
-import com.example.kafkademo.dto.Process;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -42,18 +41,18 @@ public class ProducerService {
         kafkaEmail.EmailTemplateKey = EmailTemplate.RegistrationIsPending;
         kafkaEmail.Persons =emails;
         kafkaEmail.CompanyName = "Apertech";
-        kafkaEmail.Process.getFirst().Sequence = 2;
+        kafkaEmail.rowInfos.getFirst().Sequence = 2;
         String localDateTime = LocalDateTime.now().toString().substring(0,10);
-        List<Process> processes = new ArrayList<>();
+        List<RowInfo> processes = new ArrayList<>();
 
         emails.forEach(x -> {
-            Process process = new Process("21657165E", "Isgender Memmedov", localDateTime," SPAM");
-            Process process1 = new Process("21657165W", "Oktay Afandi", localDateTime, "SPAM");
-            Process process2 = new Process("21657165A", "Subhan Mesimov", localDateTime, "SPAM");
+            RowInfo process = new RowInfo("21657165E", "Isgender Memmedov", localDateTime," SPAM");
+            RowInfo process1 = new RowInfo("21657165W", "Oktay Afandi", localDateTime, "SPAM");
+            RowInfo process2 = new RowInfo("21657165A", "Subhan Mesimov", localDateTime, "SPAM");
             processes.add(process);
             processes.add(process1);
             processes.add(process2);
-            kafkaEmail.Process = processes;
+            kafkaEmail.rowInfos = processes;
 
         });
 

@@ -1,15 +1,15 @@
 package com.example.kafkademo.dto;
 
 
-public class Process {
+public class RowInfo {
     public String Number;
     public String Name;
     public String LocalDateTime;
     public String ReasonDescription;
-    public int Sequence;
+    public Integer Sequence;
 
 
-    public Process(String Number, String Name, String LocalDateTime, String ReasonDescription, int Sequence) {
+    public RowInfo(String Number, String Name, String LocalDateTime, String ReasonDescription, Integer Sequence) {
      this.Number = Number;
      this.Name = Name;
      this.LocalDateTime = LocalDateTime;
@@ -17,7 +17,7 @@ public class Process {
      this.Sequence = Sequence;
     }
 
-    public Process(String number, String name, String localDateTime, String reasonDescription) {
+    public RowInfo(String number, String name, String localDateTime, String reasonDescription) {
         Number = number;
         Name = name;
         LocalDateTime = localDateTime;
@@ -26,7 +26,7 @@ public class Process {
 
 
 
-    public Process() {
+    public RowInfo() {
     }
 
     @Override
