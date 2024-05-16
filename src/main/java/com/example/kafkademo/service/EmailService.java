@@ -53,18 +53,36 @@ public class EmailService {
 
             String actualYear = LocalDateTime.now().getYear() + "";
             String footer = htmlThymeleaf.footer;
-            footer = footer.replace("{Company Name}", kafkaEmail.CompanyName);
-            footer = footer.replace("{Actual Year}", actualYear);
+            if (footer.contains("{Company Name}")){
+                footer = footer.replace("{Company Name}", kafkaEmail.CompanyName);
+            }
+            if (footer.contains("{Actual Year}")){
+                footer = footer.replace("{Actual Year}", actualYear);
+            }
 
             System.out.println("Yekun footer = " + footer);
 
 
             String info = htmlThymeleaf.info;
-            info = info.replace("{User Full Name}", p.UserName);
-            info = info.replace("{Reason Description}", kafkaEmail.rowInfos.getFirst().ReasonDescription);
-            info = info.replace("{Vendor Name or Company Name}", kafkaEmail.CompanyName);
+            if (info.contains("{User Full Name}")){
+                info = info.replace("{User Full Name}", p.UserName);
+            }
+            if (info.contains("{Reason Description}")){
+                info = info.replace("{Reason Description}", kafkaEmail.rowInfos.getFirst().ReasonDescription);
+            }
+            if (info.contains("{Vendor Name or Company Name}")){
+                info = info.replace("{Vendor Name or Company Name}", kafkaEmail.CompanyName);
+            }
             String link = "\"" + kafkaEmail.Link + "\"";
-            info = info.replace("\"#\"", link);
+            if(info.contains("\"#\"")){
+                info = info.replace("\"#\"", link);
+//                if (kafkaEmail.EmailTemplateKey.name().contains(kafkaEmail.EmailTemplateKey.EmailVerification.name())){
+//                    info = info.replace("\"#\"", "");
+//                }
+//                else {
+//                    info = info.replace("\"#\"", link);
+//                }
+            }
 
             System.out.println("Yekun info = " + info);
 
